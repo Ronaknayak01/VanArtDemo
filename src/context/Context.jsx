@@ -13,8 +13,8 @@ const ContextProvider = (props) => {
 
 	// Define hardcoded responses with paths to audio files
 	const hardcodedResponses = {
-		"generate some beat": {
-			audioPath: "./assets/better-day-186374.mp3",
+		"Generate some Beat": {
+			audioPath: "public/better-day-186374.mp3",
 		},
 		"Make it faster": {
 			response: "Making the beat faster...",
