@@ -84,8 +84,8 @@ const Main = () => {
 							<p>Let's Beat Everyone</p>
 						</div>
 						<div className="cards">
-							<div className="card" onClick={() => handleCardClick("Suggest Me Some Beats")}>
-								<p>Suggest Me Some Beats</p>
+							<div className="card" onClick={() => handleCardClick("generate some beats")}>
+								<p>generate some beats</p>
 								<img src={assets.compass_icon} alt="" />
 							</div>
 							<div className="card" onClick={() => handleCardClick("Create a Lofi Beat")}>

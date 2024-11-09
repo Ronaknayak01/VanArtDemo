@@ -12,10 +12,10 @@ function HeroSection() {
         <p>Develop your fanbase, build your business</p> 
         <p>and create the world around your music.</p>
         <div className="hero-buttons">
-          <Link to='/dashboard'><button>Go to Dashboard</button></Link>
-          <Link to='/login'><button>Connect with fans</button></Link>
-          <Link to='/signup'><button>Grow your business</button></Link>
-          <Link to='/community'><button>Understand your audience</button></Link>
+          {/* <Link to='/dashboard'><button>Go to Dashboard</button></Link> */}
+          <Link to='/auth'><button>Login</button></Link>
+          <Link to='/auth'><button>Signup</button></Link>
+          {/* <Link to='/community'><button>Explore Community</button></Link> */}
         </div>
       </div>
     </div>
