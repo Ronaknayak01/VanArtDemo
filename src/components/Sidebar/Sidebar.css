@@ -9,6 +9,7 @@
 }
 
 .sidebar-title {
+  color: #ffffff;
   font-size: 1.5em;
   font-weight: bold;
   margin-bottom: 20px;
@@ -20,16 +21,19 @@
 }
 
 .sidebar-item {
+  color: #ffffff;
   padding: 15px 10px;
   cursor: pointer;
   margin: 10px 0px;
   border-radius: 10px;
   transition: background 0.3s ease;
+  /* text-decoration: none; */
 }
 
-.sidebar-item:hover, .sidebar-item.active {
+.sidebar-item:hover {
   /* background-color: #1e3a5a; */
   background: var(--buttonBg);
+  text-decoration: none;
 }
 
 .sidebar-heading {
