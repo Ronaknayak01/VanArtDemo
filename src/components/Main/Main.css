@@ -95,7 +95,6 @@ body, html {
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    color: black;
     background-color: #f0f4f9;
     padding: 10px 20px;
     border-radius: 50px;
@@ -111,9 +110,9 @@ body, html {
     flex: 1;
     background: transparent;
     border: 0;
+    color: #000;
     outline: 0;
     padding: 8px;
-    color: black;
     font-size: 18px;
 }
 .search-box div{

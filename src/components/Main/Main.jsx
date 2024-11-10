@@ -1,4 +1,4 @@
-import { useContext, useRef, useEffect } from "react";
+import { useContext, useRef, useEffect, useState } from "react";
 import { assets } from "../../assets/assets.js";
 import "./Main.css";
 import { Context } from '../../context/Context.jsx';
@@ -12,13 +12,17 @@ const Main = () => {
 		resultData,
 		setInput,
 		input,
-		audioSrc, // Access audioSrc from context
+		audioSrc,
 	} = useContext(Context);
 
+	const [conversationHistory, setConversationHistory] = useState(""); // To store ongoing conversation
+
 	const canvasRef = useRef(null);
+	const audioRef = useRef(null);
 
 	const handleCardClick = (promptText) => {
 		setInput(promptText);
+		handleSend(promptText);
 	};
 
 	// Visualize the audio on canvas
@@ -26,10 +30,10 @@ const Main = () => {
 		if (!audioSrc) return;
 		const canvas = canvasRef.current;
 		const ctx = canvas.getContext("2d");
-		const audio = new Audio(audioSrc);
+
 		const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 		const analyser = audioContext.createAnalyser();
-		const source = audioContext.createMediaElementSource(audio);
+		const source = audioContext.createMediaElementSource(audioRef.current);
 		source.connect(analyser);
 		analyser.connect(audioContext.destination);
 		
@@ -62,12 +66,32 @@ const Main = () => {
 			requestAnimationFrame(draw);
 		};
 		draw();
-		audio.play();
+		audioRef.current.play();
 	};
 
 	useEffect(() => {
-		visualizeAudio();
+		if (audioSrc) {
+			audioRef.current.src = audioSrc;
+
+			// Delay visualization by 6 seconds
+			const delay = setTimeout(() => {
+				visualizeAudio();
+			}, 6000);
+
+			return () => clearTimeout(delay); // Clear timeout if audioSrc changes
+		}
 	}, [audioSrc]);
+
+	const handleSend = (text) => {
+		if (text.trim() === "") return;
+
+		// Add input to conversation history
+		setConversationHistory((prev) => `${prev}<br><strong>You:</strong> ${text}`);
+		onSent(text);
+
+		// Reset input field
+		setInput("");
+	};
 
 	return (
 		<div className="main">
@@ -117,28 +141,29 @@ const Main = () => {
 								</div>
 							) : (
 								<>
-									<p dangerouslySetInnerHTML={{ __html: resultData }}></p>
+									<p dangerouslySetInnerHTML={{ __html: `${conversationHistory}<br><strong>Bot:</strong> ${resultData}` }}></p>
 									{audioSrc && (
 										<div className="audio-container">
-										<canvas ref={canvasRef} width="300" height="100"></canvas>
-										<div className="audio-controls">
-											<button 
-												onClick={() => new Audio(audioSrc).play()} 
-												className="audio-button">
-												<img src="src/assets/play-icon.png" alt="Play" className="button-icon" />
-											</button>
-											<button 
-												onClick={() => new Audio(audioSrc).pause()} 
-												className="audio-button">
-												<img src="src/assets/pause-icon.png" alt="Pause" className="button-icon" />
-											</button>
-											<a href={audioSrc} download="generated_audio.mp3">
-												<button className="audio-button">
-													<img src="src/assets/download-icon.png" alt="Download" className="button-icon" />
+											<canvas ref={canvasRef} width="300" height="100"></canvas>
+											<audio ref={audioRef} />
+											<div className="audio-controls">
+												<button 
+													onClick={() => audioRef.current.play()} 
+													className="audio-button">
+													<img src="src/assets/play-icon.png" alt="Play" className="button-icon" />
 												</button>
-											</a>
+												<button 
+													onClick={() => audioRef.current.pause()} 
+													className="audio-button">
+													<img src="src/assets/pause-icon.png" alt="Pause" className="button-icon" />
+												</button>
+												<a href={audioSrc} download="generated_audio.mp3">
+													<button className="audio-button">
+														<img src="src/assets/download-icon.png" alt="Download" className="button-icon" />
+													</button>
+												</a>
+											</div>
 										</div>
-									</div>
 									)}
 								</>
 							)}
@@ -157,7 +182,7 @@ const Main = () => {
 						<div>
 							<img src={assets.gallery_icon} alt="" />
 							<img src={assets.mic_icon} alt="" />
-							<img src={assets.send_icon} alt="" onClick={() => onSent(input)} />
+							<img src={assets.send_icon} alt="" onClick={() => handleSend(input)} />
 						</div>
 					</div>
 				</div>

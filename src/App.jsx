@@ -22,8 +22,7 @@ function App() {
     <Route path="/signup" element={<Signup />} /> */}
         {/* <Route path="/authe" element={user ? <Navigate to="../dashboard" /> : <Auth />} /> */}
         <Route path="/auth" element={user ? <Navigate to="../dashboard" /> : <Auth />} />
-
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={user ? <Dashboard/> : <Auth />} />
         <Route path="/" element={<HeroSection />} />
         <Route path="/chatbot" element={<Chatbot />} />
         <Route path="/community" element={<Community />} />

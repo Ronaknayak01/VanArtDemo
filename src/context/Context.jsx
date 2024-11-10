@@ -17,12 +17,19 @@ const ContextProvider = (props) => {
 			audioPath: "public/better-day-186374.mp3",
 		},
 		"Make it faster": {
-			response: "Making the beat faster...",
-			audioPath: "/audio/make_faster.mp3",
+			audioPath: "public/midnight-quirk-255361.mp3",
 		},
 		"Make it slower": {
-			response: "Slowing down the beat...",
-			audioPath: "/audio/make_slower.mp3",
+			audioPath: "public/Infinite(Melodic Waves).mp3",
+		},
+		"Make a Beat using Drum": {
+			audioPath: "public/afro-dancehall-drum-loop-115bpm-247563",
+		},
+		"Modify  Living House Beat by merging it with this": {
+			audioPath: "public/Modern Melody(Melody Craft).mp3",
+		},
+		"make it lofi": {
+			audioPath: "public/Daydreams-chosic.com_.mp3",
 		},
 	};
 
@@ -49,8 +56,7 @@ const ContextProvider = (props) => {
 			response = hardcodedResponses[prompt].response;
 			audioPath = hardcodedResponses[prompt].audioPath;
 		} else {
-			response = "Command not recognized.";
-			audioPath = ""; // No audio path if the command isn't recognized
+			audioPath = "public/Chillwave flow(Harmonic Flow).mp3"; // No audio path if the command isn't recognized
 		}
 
 		setRecentPrompt(prompt);

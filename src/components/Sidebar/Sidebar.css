@@ -37,3 +37,7 @@
   font-size: 1.1em;
   color: #8a9bb6;
 }
+
+.sidebar Link{
+  text-decoration: none;
+}
